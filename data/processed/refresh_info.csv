@@ -1,0 +1,4 @@
+sample,dataset_code,title,source_last_update,fetched_date,url
+isoc_eb_ai,isoc_eb_ai,Artificial intelligence by size class of enterprise,2026-06-15,2026-10-23,https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/isoc_eb_ai/A.10-49+50-249+GE250+GE10.C10-S951_X_K.E_AI_TANY.PC_ENT.?format=SDMX-CSV
+nama_10_lp_ulc,nama_10_lp_ulc,Labour productivity and unit labour costs: real productivity per hour (index),2026-10-22,2026-10-23,https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/nama_10_lp_ulc/A.I15.RLPR_HW.?format=SDMX-CSV&startPeriod=2015
+nama_10_lp_ulc_level,nama_10_lp_ulc,"Labour productivity and unit labour costs: productivity per hour (% of EU-27, PPS)",2026-10-22,2026-10-23,https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/nama_10_lp_ulc/A.PC_EU27_2020_MPPS_CP.NLPR_HW.?format=SDMX-CSV&startPeriod=2015
