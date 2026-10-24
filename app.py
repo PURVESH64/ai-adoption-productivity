@@ -12,6 +12,8 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 
+from views.barriers import render_barriers
+
 DATA = Path(__file__).parent / "data" / "processed"
 
 QUESTION = (
@@ -330,6 +332,9 @@ with st.expander("Values behind the charts in this section"):
         "ai_series_break": "Break in AI series",
     })
     st.dataframe(table.fillna(""), hide_index=True, width="stretch")
+
+# ---------------------------------------------------------------- section 4
+render_barriers(selected)
 
 # ---------------------------------------------------------------- answer and limits
 countries = default[~default["is_aggregate"]]
