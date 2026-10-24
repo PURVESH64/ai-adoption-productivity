@@ -14,6 +14,8 @@ from pathlib import Path
 
 import pandas as pd
 
+from process_barriers import build_barriers
+
 ROOT = Path(__file__).resolve().parents[1]
 RAW = ROOT / "data" / "raw"
 OUT = ROOT / "data" / "processed"
@@ -47,6 +49,7 @@ SAMPLE_TITLES = {
     "isoc_eb_ai": "Artificial intelligence by size class of enterprise",
     "nama_10_lp_ulc": "Labour productivity and unit labour costs: real productivity per hour (index)",
     "nama_10_lp_ulc_level": "Labour productivity and unit labour costs: productivity per hour (% of EU-27, PPS)",
+    "isoc_eb_ai_barriers": "Artificial intelligence by size class of enterprise: reasons for not using AI",
 }
 
 
@@ -152,6 +155,7 @@ def main() -> None:
     lp = build_productivity(raws["nama_10_lp_ulc"])
     level = build_productivity_level(raws["nama_10_lp_ulc_level"])
     comp = build_comparison(ai, lp, level)
+    barriers = build_barriers(tidy(raws["isoc_eb_ai_barriers"], "isoc_eb_ai_barriers"), SIZE_LABELS)
     refresh = build_refresh_info({name: last_update(df) for name, df in raws.items()})
 
     outputs = {
@@ -159,6 +163,7 @@ def main() -> None:
         "productivity.csv": lp,
         "productivity_level.csv": level,
         "adoption_vs_productivity.csv": comp,
+        "ai_barriers.csv": barriers,
         "refresh_info.csv": refresh,
     }
     for name, df in outputs.items():

@@ -39,6 +39,14 @@ SOURCES = [
         "nama_10_lp_ulc",
         f"{API}/nama_10_lp_ulc/A.PC_EU27_2020_MPPS_CP.NLPR_HW.?format=SDMX-CSV&startPeriod=2015",
     ),
+    # Reasons for not using AI, as % of enterprises that had considered using AI
+    (
+        "isoc_eb_ai_barriers",
+        "isoc_eb_ai",
+        f"{API}/isoc_eb_ai/A.10-49+50-249+GE250+GE10.C10-S951_X_K."
+        "E_AI_BLE+E_AI_BLEG+E_AI_BCDP+E_AI_BDDT+E_AI_BINC+E_AI_BCST+E_AI_BEC+E_AI_BNU.PC_ENT_AI_EC."
+        "?format=SDMX-CSV",
+    ),
 ]
 
 
