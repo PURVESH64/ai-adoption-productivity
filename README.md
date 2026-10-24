@@ -2,7 +2,7 @@
 
 An interactive data narrative (Streamlit) for *The Rise of Artificial Intelligence: Data Narrative Studio*, Assignment 3.
 
-- **Deployed app:** _add the Streamlit Community Cloud URL here_
+- **Deployed app:** https://ai-adoption-appuctivity-jjrmxanoefkvkcrimwafsx.streamlit.app
 - **Assessed version:** _add the commit hash or release tag here_
 
 ## Question
