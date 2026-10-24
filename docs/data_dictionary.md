@@ -93,7 +93,31 @@ All data comes from Eurostat. Raw samples are unmodified API extracts; processed
 | `OBS_VALUE` | Productivity per hour worked relative to the EU-27 | % of EU-27 average (EU-27 = 100) |
 | `OBS_FLAG` | Eurostat observation flag | `p`, `e`, `b` or empty |
 
-### 4. `fetch_log.csv`
+### 4. `isoc_eb_ai_barriers_sample.csv`
+
+| Item | Value |
+|---|---|
+| Source | Eurostat, *Artificial intelligence by size class of enterprise* (`isoc_eb_ai`), reasons for not using AI |
+| Data browser | https://ec.europa.eu/eurostat/databrowser/view/isoc_eb_ai/default/table |
+| API URL used | https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/isoc_eb_ai/A.10-49+50-249+GE250+GE10.C10-S951_X_K.E_AI_BLE+E_AI_BLEG+E_AI_BCDP+E_AI_BDDT+E_AI_BINC+E_AI_BCST+E_AI_BEC+E_AI_BNU.PC_ENT_AI_EC.?format=SDMX-CSV |
+| Licence | CC BY 4.0 |
+| Filter applied at the API | eight indicators "enterprises do not use AI technologies, because ..." (see `barrier_code` in file 10); unit `PC_ENT_AI_EC` (% of enterprises that ever considered using AI technologies); sector `C10-S951_X_K`; size classes `GE10`, `10-49`, `50-249`, `GE250`; all countries |
+| Rows | 3,028 (55 with no value, flagged `u`) |
+| Primary key | `geo`, `size_emp`, `indic_is`, `TIME_PERIOD` |
+| Time coverage | 2021, 2023, 2024, 2025 (21-23 countries per year; the EU-27 aggregate from 2023) |
+| Latest observation | 2025 |
+| Eurostat last update | 2026-06-15 |
+| Transform | None. Saved exactly as returned by the API (`scripts/fetch_data.py`). |
+
+| Column | Meaning | Unit / values |
+|---|---|---|
+| `DATAFLOW`, `LAST UPDATE`, `freq`, `size_emp`, `nace_r2`, `geo`, `TIME_PERIOD`, `CONF_STATUS` | As in dataset 1 | as above |
+| `indic_is` | Reason for not using AI | `E_AI_BLE`, `E_AI_BLEG`, `E_AI_BCDP`, `E_AI_BDDT`, `E_AI_BINC`, `E_AI_BCST`, `E_AI_BEC`, `E_AI_BNU` |
+| `unit` | Unit | `PC_ENT_AI_EC` = % of enterprises that ever considered using AI |
+| `OBS_VALUE` | Enterprises giving this reason | % of enterprises that had considered using AI |
+| `OBS_FLAG` | Eurostat observation flag | `u`, `b` or empty |
+
+### 5. `fetch_log.csv`
 
 | Item | Value |
 |---|---|
@@ -115,7 +139,7 @@ All produced by `python scripts/process.py`. Common steps:
 - **T3.** Add the English `country` name, `is_aggregate` (`True` only for `EU27_2020`), integer `year` from `TIME_PERIOD`, and `obs_flag` (missing flag becomes an empty string).
 - **T4.** Round values to 2 decimal places.
 
-### 5. `ai_adoption.csv`
+### 6. `ai_adoption.csv`
 
 | Item | Value |
 |---|---|
@@ -137,7 +161,7 @@ All produced by `python scripts/process.py`. Common steps:
 | `ai_adoption_pct` | Enterprises using at least one AI technology | % of enterprises |
 | `obs_flag` | Eurostat flag | `b` or empty |
 
-### 6. `productivity.csv`
+### 7. `productivity.csv`
 
 | Item | Value |
 |---|---|
@@ -150,11 +174,11 @@ All produced by `python scripts/process.py`. Common steps:
 
 | Column | Meaning | Unit |
 |---|---|---|
-| `geo`, `country`, `is_aggregate`, `year` | As in file 5 | |
+| `geo`, `country`, `is_aggregate`, `year` | As in file 6 | |
 | `productivity_index_2015` | Real labour productivity per hour worked | index, 2015 = 100 |
 | `obs_flag` | Eurostat flag | `p`, `b` or empty |
 
-### 7. `productivity_level.csv`
+### 8. `productivity_level.csv`
 
 | Item | Value |
 |---|---|
@@ -167,24 +191,24 @@ All produced by `python scripts/process.py`. Common steps:
 
 | Column | Meaning | Unit |
 |---|---|---|
-| `geo`, `country`, `is_aggregate`, `year` | As in file 5 | |
+| `geo`, `country`, `is_aggregate`, `year` | As in file 6 | |
 | `productivity_level_pct_eu` | Nominal labour productivity per hour worked, purchasing power standards | % of EU-27 average (EU-27 = 100) |
 | `obs_flag` | Eurostat flag | `p`, `e`, `b` or empty |
 
-### 8. `adoption_vs_productivity.csv`
+### 9. `adoption_vs_productivity.csv`
 
 | Item | Value |
 |---|---|
-| Built from | Processed files 5, 6 and 7 |
+| Built from | Processed files 6, 7 and 8 |
 | Rows | 124 (31 geos: 30 countries + EU-27, × 4 comparison periods) |
 | Primary key | `geo`, `base_year`, `end_year` |
 | Time coverage | Base year 2021 or 2023; end year 2024 or 2025 |
 | Latest observation | 2025 |
-| Transform | **T5.** Use the all-firms size class (`GE10`) of file 5. **T6.** For each period (base 2021 or 2023, end 2024 or 2025), keep countries with AI adoption *and* productivity in both the base and end year (inner join on `geo`). **T7.** `ai_change_pp = ai_pct_end − ai_pct_base`. **T8.** `lp_growth_pct = (lp_index_end / lp_index_base − 1) × 100`. **T9.** `lp_level_base_pct_eu` = file 7 value for the base year. **T10.** `ai_series_break` = `True` if any AI observation from the base to the end year carries flag `b`. Results rounded to 2 decimal places. |
+| Transform | **T5.** Use the all-firms size class (`GE10`) of file 6. **T6.** For each period (base 2021 or 2023, end 2024 or 2025), keep countries with AI adoption *and* productivity in both the base and end year (inner join on `geo`). **T7.** `ai_change_pp = ai_pct_end − ai_pct_base`. **T8.** `lp_growth_pct = (lp_index_end / lp_index_base − 1) × 100`. **T9.** `lp_level_base_pct_eu` = file 8 value for the base year. **T10.** `ai_series_break` = `True` if any AI observation from the base to the end year carries flag `b`. Results rounded to 2 decimal places. |
 
 | Column | Meaning | Unit |
 |---|---|---|
-| `geo`, `country`, `is_aggregate` | As in file 5 | |
+| `geo`, `country`, `is_aggregate` | As in file 6 | |
 | `base_year` / `end_year` | Start / end of the comparison period | year |
 | `ai_pct_base` / `ai_pct_end` | Enterprises (10+ employees) using AI in the base / end year | % of enterprises |
 | `lp_index_base` / `lp_index_end` | Real labour productivity per hour worked in the base / end year | index, 2015 = 100 |
@@ -200,7 +224,28 @@ Statistics computed by the app at run time from this file, using the 30 non-aggr
 - **Catch-up r** = Pearson correlation between `lp_level_base_pct_eu` and `lp_growth_pct`.
 - **Partial r** = correlation between the residuals of `ai_change_pp` and of `lp_growth_pct`, each regressed by least squares on `lp_level_base_pct_eu` (2021-2024: −0.20).
 
-### 9. `refresh_info.csv`
+### 10. `ai_barriers.csv`
+
+| Item | Value |
+|---|---|
+| Built from | `data/raw/isoc_eb_ai_barriers_sample.csv` (by `scripts/process_barriers.py`, called from `scripts/process.py`) |
+| Rows | 2,877 (25 countries + EU-27; 4 size classes; 8 reasons; up to 4 years) |
+| Primary key | `geo`, `year`, `size_class_code`, `barrier_code` |
+| Time coverage | 2021, 2023, 2024, 2025 |
+| Latest observation | 2025 |
+| Transform | T1-T4 (the 55 empty `u` values drop out at T1); `size_emp` is kept as `size_class_code` with a readable `size_class`; `indic_is` is kept as `barrier_code` with a readable `barrier` label. |
+
+| Column | Meaning | Unit |
+|---|---|---|
+| `geo`, `country`, `is_aggregate`, `year`, `size_class_code`, `size_class` | As in file 6 | |
+| `barrier_code` | Eurostat indicator code | `E_AI_BLE` lack of relevant expertise; `E_AI_BLEG` unclear legal consequences; `E_AI_BCDP` data protection and privacy concerns; `E_AI_BDDT` data availability or quality; `E_AI_BINC` incompatible with existing systems; `E_AI_BCST` costs seem too high; `E_AI_BEC` ethical considerations; `E_AI_BNU` AI not useful for the enterprise |
+| `barrier` | Readable reason | text |
+| `pct_of_considering` | Enterprises giving this reason for not using AI | % of enterprises that had considered using AI |
+| `obs_flag` | Eurostat flag | `b` or empty |
+
+Firms could give several reasons, so values for one country, year and size class do not add up to 100%.
+
+### 11. `refresh_info.csv`
 
 | Item | Value |
 |---|---|
