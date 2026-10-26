@@ -47,6 +47,12 @@ SOURCES = [
         "E_AI_BLE+E_AI_BLEG+E_AI_BCDP+E_AI_BDDT+E_AI_BINC+E_AI_BCST+E_AI_BEC+E_AI_BNU.PC_ENT_AI_EC."
         "?format=SDMX-CSV",
     ),
+    # ICT specialists as % of total employment. Key order: freq.unit.geo
+    (
+        "isoc_sks_itspt",
+        "isoc_sks_itspt",
+        f"{API}/isoc_sks_itspt/A.PC_EMP.?format=SDMX-CSV&startPeriod=2021",
+    ),
 ]
 
 
