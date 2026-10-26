@@ -13,6 +13,7 @@ import pandas as pd
 import streamlit as st
 
 from views.barriers import render_barriers
+from views.skills import render_skills
 
 DATA = Path(__file__).parent / "data" / "processed"
 
@@ -335,6 +336,9 @@ with st.expander("Values behind the charts in this section"):
 
 # ---------------------------------------------------------------- section 4
 render_barriers(selected)
+
+# ---------------------------------------------------------------- section 5
+render_skills(selected)
 
 # ---------------------------------------------------------------- answer and limits
 countries = default[~default["is_aggregate"]]
