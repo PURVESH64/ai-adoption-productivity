@@ -15,4 +15,4 @@
 - AI output was treated as a draft. Team members checked numbers against the raw Eurostat files, reran the processing scripts, tested the interactions and colour accessibility, and edited the text so that claims stay within the data.
 - The team takes full responsibility for the analysis, the design decisions and every claim made in the app.
 
-_Signed:_ Purvesh Jayeshbhai Ribadiya (_date_), Shifa Ansari (26 october 2026)
+_Signed:_ Purvesh Jayeshbhai Ribadiya (26 october 2026), Shifa Ansari (26 october 2026)
