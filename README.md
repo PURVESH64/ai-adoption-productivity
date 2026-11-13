@@ -3,7 +3,7 @@
 An interactive data narrative (Streamlit) for *The Rise of Artificial Intelligence: Data Narrative Studio*, Assignment 3.
 
 - **Deployed app:** https://ai-adoption-appuctivity-jjrmxanoefkvkcrimwafsx.streamlit.app
-- **Assessed version:** _add the commit hash or release tag here_
+- **Assessed version:** release tag [`a3-final`](https://github.com/PURVESH64/ai-adoption-productivity/releases/tag/a3-final)
 
 ## Question
 
