@@ -10,7 +10,7 @@
 
 ## Use of AI tools
 
-- We used generative AI assistance (the Cursor AI coding agent) to help find suitable datasets, write the data download and processing scripts, build the Streamlit app, and draft documentation and on-screen text.
+- We used generative AI assistance (the Cursor AI coding agent, running a Claude model) to help find suitable datasets, write the data download and processing scripts, build the Streamlit app, and draft documentation and on-screen text.
 - Each substantive use is recorded in `docs/ai_provenance_matrix.md`: who used it, what was asked, what came back, how it was checked, and the outcome.
 - AI output was treated as a draft. Team members checked numbers against the raw Eurostat files, reran the processing scripts, tested the interactions and colour accessibility, and edited the text so that claims stay within the data.
 - The team takes full responsibility for the analysis, the design decisions and every claim made in the app.
